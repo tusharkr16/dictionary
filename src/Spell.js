@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const customDictionary = [
     { word: "React", meaning: "A JavaScript library for building user interfaces." },
@@ -10,20 +10,29 @@ const Spell = () => {
     const [text, setText] = useState('');
     const [suggestion, setSuggestion] = useState('');
 
-    useEffect(() => {
+    const handleSubmission = () => {
+        if (!text.trim()) {
+            setSuggestion('');
+            return;
+        }
+
         const words = text.split(' ');
+        let found = false;
+
         for (let word of words) {
             const lowerCaseWord = word.toLowerCase();
             const foundWord = customDictionary.find(entry => entry.word.toLowerCase() === lowerCaseWord);
             if (foundWord) {
                 setSuggestion(`Definition: ${foundWord.meaning}`);
-                return;
-            } else {
-                setSuggestion(`Definition: Word doesn't found`);
+                found = true;
+                break; // Stop searching if a match is found
             }
         }
-        setSuggestion('');
-    }, [text]);
+
+        if (!found) {
+            setSuggestion(`Definition: Word not found`);
+        }
+    };
 
     const handleChange = (e) => {
         setText(e.target.value);
@@ -32,11 +41,13 @@ const Spell = () => {
     return (
         <div>
             <h1>Dictionary App</h1>
-            <textarea
+            <input
+                type='text'
                 value={text}
                 onChange={handleChange}
                 placeholder="Type something here..."
             />
+            <button onClick={handleSubmission}>Submit</button>
             {suggestion && <p>{suggestion}</p>}
         </div>
     );
