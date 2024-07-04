@@ -12,25 +12,17 @@ const Spell = () => {
 
     const handleSubmission = () => {
         if (!text.trim()) {
-            setSuggestion('');
+            setSuggestion('Word not found in the dictionary.');
             return;
         }
 
-        const words = text.split(' ');
-        let found = false;
+        const lowerCaseText = text.toLowerCase();
+        const foundWord = customDictionary.find(entry => entry.word.toLowerCase() === lowerCaseText);
 
-        for (let word of words) {
-            const lowerCaseWord = word.toLowerCase();
-            const foundWord = customDictionary.find(entry => entry.word.toLowerCase() === lowerCaseWord);
-            if (foundWord) {
-                setSuggestion(`Definition: ${foundWord.meaning}`);
-                found = true;
-                break; // Stop searching if a match is found
-            }
-        }
-
-        if (!found) {
-            setSuggestion(`Definition: Word not found`);
+        if (foundWord) {
+            setSuggestion(` ${foundWord.meaning}`);
+        } else {
+            setSuggestion('Word not found in the dictionary.');
         }
     };
 
@@ -48,7 +40,8 @@ const Spell = () => {
                 placeholder="Type something here..."
             />
             <button onClick={handleSubmission}>Submit</button>
-            {suggestion && <p>{suggestion}</p>}
+            <h3>Definition :</h3>
+            <p> {suggestion}</p>
         </div>
     );
 }
