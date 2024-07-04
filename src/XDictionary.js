@@ -24,7 +24,7 @@ function XDictionary() {
 
     return (
         <div>
-            <h1>XDictionary</h1>
+            <h1>Dictionary App</h1>
             <input
                 type="text"
                 placeholder="Enter a word"
@@ -33,7 +33,7 @@ function XDictionary() {
             />
             <button onClick={handleSearch}>Search</button>
             <div>
-                <h4>Definition</h4>
+                <h4>Definition:</h4>
                 <p>{searchResult}</p>
             </div>
         </div>
