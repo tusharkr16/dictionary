@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import Spell from './Spell';
+import XDictionary from './XDictionary';
 
 function App() {
   return (
     <div className="App">
-      <Spell />
+      <XDictionary />
     </div>
   );
 }
