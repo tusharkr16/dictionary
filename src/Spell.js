@@ -18,6 +18,8 @@ const Spell = () => {
             if (foundWord) {
                 setSuggestion(`Definition: ${foundWord.meaning}`);
                 return;
+            } else {
+                setSuggestion(`Definition: Word doesn't found`);
             }
         }
         setSuggestion('');
